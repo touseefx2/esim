@@ -43,7 +43,7 @@ function LoadingScreen() {
   return (
     <React.Fragment>
       {/* You can show a custom loading screen here */}
-      <Text
+      {/* <Text
         style={{
           color: "black",
           fontSize: 40,
@@ -52,7 +52,7 @@ function LoadingScreen() {
         }}
       >
         Loading...
-      </Text>
+      </Text> */}
     </React.Fragment>
   );
 }
