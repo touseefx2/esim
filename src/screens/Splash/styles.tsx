@@ -1,20 +1,20 @@
-import {StyleSheet} from 'react-native';
-import {ThemeState} from '../../redux/slices/themeSlice'; // Import full ThemeState
-import {CustomFonts, FontSize} from '../../constants/typography';
+import { StyleSheet } from "react-native";
+import { ThemeState } from "../../redux/slices/themeSlice"; // Import full ThemeState
+import { CustomFonts, FontSize } from "../../constants/typography";
 
 export const createStyles = (theme: ThemeState) =>
   StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.colors.background,
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignItems: "center",
+      justifyContent: "center",
       padding: 15,
     },
     image: {
-      width: '70%',
-      height: '70%',
-      resizeMode: 'contain',
+      width: "65%",
+      height: "68%",
+      resizeMode: "contain",
     },
     text: {
       fontSize: FontSize.size26,

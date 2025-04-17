@@ -9,34 +9,26 @@ function Splash() {
   const styles = useMemo(() => createStyles(theme), [theme.currentTheme]);
 
   const rotateAnim = useRef(new Animated.Value(0)).current;
-  const translateYAnim = useRef(new Animated.Value(-300)).current;
 
   useEffect(() => {
-    initAnimation();
+    initSpin();
   }, []);
 
-  const initAnimation = () => {
-    Animated.sequence([
-      Animated.timing(translateYAnim, {
-        toValue: 0,
-        duration: 500,
-        easing: Easing.out(Easing.quad),
-        useNativeDriver: true,
-      }),
+  const initSpin = () => {
+    setTimeout(() => {
       Animated.timing(rotateAnim, {
-        toValue: 1,
-        duration: 1000,
+        toValue: 1, // 1 full spin only
+        duration: 1200, // spin over 2 seconds
         easing: Easing.linear,
         useNativeDriver: true,
-      }),
-    ]).start();
+      }).start();
+    }, 300);
   };
 
   const spin = rotateAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ["0deg", "360deg"],
   });
-
   return (
     <View style={styles.container}>
       <Animated.Image
@@ -45,12 +37,7 @@ function Splash() {
             ? images.splashBlack
             : images.splashWhite
         }
-        style={[
-          styles.image,
-          {
-            transform: [{ translateY: translateYAnim }, { rotate: spin }],
-          },
-        ]}
+        style={[styles.image, { transform: [{ rotate: spin }] }]}
       />
     </View>
   );

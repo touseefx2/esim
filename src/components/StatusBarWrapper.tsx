@@ -1,13 +1,22 @@
-import React, {memo} from 'react';
-import {StatusBar} from 'react-native';
-import {useTheme} from '../hooks/hooks';
+import React, { memo } from "react";
+import { StatusBar, StatusBarStyle } from "react-native";
+import { useTheme } from "../hooks/hooks";
 
-const StatusBarWrapper = () => {
+interface StatusBarWrapperProps {
+  backgroundColor?: string;
+  barStyle?: StatusBarStyle;
+}
+
+const StatusBarWrapper: React.FC<StatusBarWrapperProps> = ({
+  backgroundColor,
+  barStyle,
+}) => {
   const theme = useTheme();
+
   return (
     <StatusBar
-      backgroundColor={theme.colors.background}
-      barStyle={theme.colors.statusBarStyle}
+      backgroundColor={backgroundColor ?? theme.colors.background}
+      barStyle={barStyle ?? (theme.colors.statusBarStyle as StatusBarStyle)}
     />
   );
 };

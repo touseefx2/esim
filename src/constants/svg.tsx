@@ -1,4 +1,4 @@
-import * as icons from '../assets/svg/icons';
+import * as icons from "../assets/svg/icons";
 
 export default {
   icons,

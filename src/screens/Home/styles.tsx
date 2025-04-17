@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {ThemeState} from '../../redux/slices/themeSlice'; // Import full ThemeState
-import {CustomFonts, FontSize} from '../../constants/typography';
+import { StyleSheet } from "react-native";
+import { ThemeState } from "../../redux/slices/themeSlice"; // Import full ThemeState
+import { CustomFonts, FontSize } from "../../constants/typography";
 
 export const createStyles = (theme: ThemeState) =>
   StyleSheet.create({
@@ -11,38 +11,41 @@ export const createStyles = (theme: ThemeState) =>
     },
     container2: {
       flex: 1,
-      justifyContent: 'center',
+      justifyContent: "center",
     },
     textRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: "row",
+      alignItems: "center",
       gap: 15,
     },
     image: {
       width: 65,
       height: 70,
-      resizeMode: 'contain',
+      resizeMode: "contain",
     },
     text: {
       fontSize: FontSize.size26,
       fontFamily: CustomFonts.medium,
       color: theme.colors.text,
-      maxWidth: '78%',
+      maxWidth: "78%",
+    },
+    iconRow2: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
     },
     iconRow: {
-      // position: 'absolute',
-      // top: 30,
-      // right: 15,
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: "row",
+      alignItems: "center",
       gap: 5,
-      justifyContent: 'flex-end',
+      justifyContent: "flex-end",
+      top: 20,
     },
     iconButton: {
       padding: 8,
     },
     dropdown: {
-      position: 'absolute',
+      position: "absolute",
       top: 35,
       right: 0,
       borderRadius: 12,

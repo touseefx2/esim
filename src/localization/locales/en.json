@@ -3,5 +3,20 @@
   "login": "Login",
   "signup": "Sign Up",
   "home": "Home",
-  "welcomMsg": "Welcome To Esim"
+  "welcomMsg": "Welcome To Esim",
+  "updateReq": "Update Required",
+  "updateOpt": "Update Application",
+  "updateMsg": "A new version of the app is available. Please update to continue using the app",
+  "updateNow": "Update Now",
+  "skip": "Skip",
+  "next": "Next",
+  "newUserReg": "New User Registration!",
+  "onBoardTitle1": "Language Support for eSIM Services!",
+  "onBoardTitle2": "A wide range of advanced eSIM services",
+  "onBoardTitle3": "eSIM Innovation",
+  "onBoardMessage1": "We are committed to ensuring that the language is seamlessly integrated into our eSIM services, providing a user-friendly experience for speaking customers!",
+  "onBoardMessage2": "A seamless and accessible solution for managing complex connectivity needs with ease and efficiency.",
+  "onBoardMessage3": "We offer a wide range of eSIM solutions to enhance connectivity and inspire new possibilities for your next digital experience!",
+  "search": "Search",
+  "signIn": "Sign In"
 }

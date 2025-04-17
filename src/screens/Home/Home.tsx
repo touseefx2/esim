@@ -1,17 +1,25 @@
-import React, {useMemo, useState} from 'react';
-import {Image, SafeAreaView, Text, TouchableOpacity, View} from 'react-native';
-import {createStyles} from './styles';
-import {setLanguage} from '../../redux/slices/languageSlice';
-import {toggleTheme} from '../../redux/slices/themeSlice';
-import {useAppDispatch, useAppTranslation, useTheme} from '../../hooks/hooks';
-import images from '../../constants/images';
-import {VectorIcons} from '../../constants/vectorIcons';
+import React, { useMemo, useState } from "react";
+import {
+  Image,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { createStyles } from "./styles";
+import { setLanguage } from "../../redux/slices/languageSlice";
+import { toggleTheme } from "../../redux/slices/themeSlice";
+import { useAppDispatch, useAppTranslation, useTheme } from "../../hooks/hooks";
+import images from "../../constants/images";
+import { touchOpacity, VectorIcons } from "../../constants/vectorIcons";
+import { CustomFonts, FontSize } from "../../constants/typography";
+import routes from "../../constants/routes";
 
-function Home() {
+function Home(props: any) {
   const theme = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme.currentTheme]);
   const dispatch = useAppDispatch();
-  const {t} = useAppTranslation();
+  const { t } = useAppTranslation();
   const [showLangDropdown, setShowLangDropdown] = useState(false);
 
   const changeLanguage = (lang: string) => {
@@ -25,12 +33,57 @@ function Home() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={styles.iconRow2}>
+        <TouchableOpacity
+          activeOpacity={touchOpacity}
+          style={{
+            width: "80%",
+            backgroundColor: theme.colors.button,
+            paddingVertical: 15,
+            borderRadius: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            paddingHorizontal: 15,
+          }}
+        >
+          <Text
+            style={{
+              color: theme.colors.background,
+              fontSize: FontSize.size16,
+              fontFamily: CustomFonts.medium,
+            }}
+          >
+            {t("search")}
+          </Text>
+          <VectorIcons.Entypo
+            name="chevron-thin-down"
+            size={17}
+            color={theme.colors.background}
+          />
+        </TouchableOpacity>
+
+        <Text
+          numberOfLines={2}
+          onPress={() => props.navigation.navigate(routes.Login)}
+          style={{
+            color: theme.colors.button,
+            fontSize: FontSize.size16,
+            fontFamily: CustomFonts.bold,
+            maxWidth: "18%",
+          }}
+        >
+          {t("signIn")}
+        </Text>
+      </View>
+
       <View style={styles.iconRow}>
         {/* Language Dropdown */}
-        <View style={{position: 'relative'}}>
+        <View style={{ position: "relative" }}>
           <TouchableOpacity
-            onPress={() => setShowLangDropdown(prev => !prev)}
-            style={styles.iconButton}>
+            onPress={() => setShowLangDropdown((prev) => !prev)}
+            style={styles.iconButton}
+          >
             <VectorIcons.Feather
               name="globe"
               size={24}
@@ -40,17 +93,17 @@ function Home() {
 
           {showLangDropdown && (
             <View style={styles.dropdown}>
-              <TouchableOpacity onPress={() => changeLanguage('en')}>
+              <TouchableOpacity onPress={() => changeLanguage("en")}>
                 <Text numberOfLines={1} style={styles.dropdownItem}>
                   English
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => changeLanguage('ur')}>
+              <TouchableOpacity onPress={() => changeLanguage("ur")}>
                 <Text numberOfLines={1} style={styles.dropdownItem}>
                   اردو
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => changeLanguage('fr')}>
+              <TouchableOpacity onPress={() => changeLanguage("fr")}>
                 <Text numberOfLines={1} style={styles.dropdownItem}>
                   Français
                 </Text>
@@ -62,7 +115,7 @@ function Home() {
         {/* Theme Toggle */}
         <TouchableOpacity onPress={toggleAppTheme} style={styles.iconButton}>
           <VectorIcons.Feather
-            name={theme.currentTheme === 'dark' ? 'sun' : 'moon'}
+            name={theme.currentTheme === "dark" ? "sun" : "moon"}
             size={24}
             color={theme.colors.text}
           />
@@ -72,7 +125,7 @@ function Home() {
       <View style={styles.container2}>
         <View style={styles.textRow}>
           <Image source={images.mainLogo} style={styles.image} />
-          <Text style={styles.text}>{t('welcomMsg')}</Text>
+          <Text style={styles.text}>{t("welcomMsg")}</Text>
         </View>
       </View>
     </SafeAreaView>

@@ -3,5 +3,20 @@
   "login": "Connexion",
   "signup": "S'inscrire",
   "home": "Maison",
-  "welcomMsg": "Bienvenue sur Esim"
+  "welcomMsg": "Bienvenue sur Esim",
+  "updateReq": "Mise à jour requise",
+  "updateOpt": "Mettre à jour l'application",
+  "updateMsg": "Une nouvelle version de l'application est disponible. Veuillez la mettre à jour pour continuer à l'utiliser.",
+  "updateNow": "Mettre à jour maintenant",
+  "skip": "Ignorer",
+  "next": "Suivant",
+  "newUserReg": "Nouvelle inscription utilisateur!",
+  "onBoardTitle1": "Support linguistique pour les services eSIM!",
+  "onBoardTitle2": "Une large gamme de services eSIM avancés",
+  "onBoardTitle3": "Innovation eSIM",
+  "onBoardMessage1": "Nous nous engageons à intégrer parfaitement la langue dans nos services eSIM, offrant une expérience conviviale aux utilisateurs!",
+  "onBoardMessage2": "Une solution fluide et accessible pour gérer des besoins de connectivité complexes avec facilité et efficacité.",
+  "onBoardMessage3": "Nous offrons une large gamme de solutions eSIM pour améliorer la connectivité et inspirer de nouvelles possibilités pour votre prochaine expérience numérique!",
+  "search": "Rechercher",
+  "signIn": "Se connecter"
 }

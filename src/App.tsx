@@ -1,19 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import MainNavigator from "./navigation/MainNavigator";
-import { useAppSelector, useAppTranslation, useTheme } from "./hooks/hooks";
+import {
+  useAppDispatch,
+  useAppSelector,
+  useAppTranslation,
+  useTheme,
+} from "./hooks/hooks";
 import { selectLanguage } from "./redux/slices/languageSlice";
-import { I18nManager } from "react-native";
+import { I18nManager, Platform } from "react-native";
 import StatusBarWrapper from "./components/StatusBarWrapper";
 import { Splash } from "./screens";
 import { setNavigationBarColor } from "./utils/functions";
+import ForceUpdate from "./components/Modals/ForceUpdate/ForceUpdate";
+import { androidAppLink, iosAppLink } from "./constants/env";
+// @ts-ignore
+import VersionCheck from "react-native-version-check";
+import { setTheme } from "./redux/slices/themeSlice";
 
 function App(): React.JSX.Element {
   const theme = useTheme();
+  const dispatch = useAppDispatch();
   const { i18n } = useAppTranslation();
   const language = useAppSelector(selectLanguage);
   const [appReady, setAppReady] = useState(false);
   const [isSplash, setIsSplash] = useState(true);
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
     initialize();
@@ -21,7 +33,8 @@ function App(): React.JSX.Element {
 
   useEffect(() => {
     setNavigationBarColor(theme.currentTheme);
-  }, [theme.currentTheme]);
+    dispatch(setTheme(theme.currentTheme));
+  }, [theme]);
 
   useEffect(() => {
     updateLayout();
@@ -29,6 +42,7 @@ function App(): React.JSX.Element {
 
   const initialize = async () => {
     setTimeout(() => {
+      checkUpdateNeeded();
       setIsSplash(false);
     }, 2000);
   };
@@ -45,10 +59,33 @@ function App(): React.JSX.Element {
     }
   };
 
+  const checkUpdateNeeded = async () => {
+    // try {
+    //   const res = await VersionCheck.needUpdate({
+    //     depth: 1,
+    //   });
+    //   console.log("VersionCheck res: ", res);
+    //   setIsUpdate(res?.isNeeded || false);
+    // } catch (error) {
+    //   console.log("❌ VersionCheck Catch Err: ", error);
+    // }
+    setIsUpdate(true);
+  };
+
+  const closeUpdateModal = useCallback(() => {
+    setIsUpdate(false);
+  }, []);
+
   return (
     <NavigationContainer key={appReady ? "rtl" : "ltr"}>
       <StatusBarWrapper />
       {isSplash ? <Splash /> : <MainNavigator />}
+      <ForceUpdate
+        isModal={isUpdate}
+        isForce={false}
+        updateUrl={Platform.OS === "android" ? androidAppLink : iosAppLink}
+        closeModal={closeUpdateModal}
+      />
     </NavigationContainer>
   );
 }
