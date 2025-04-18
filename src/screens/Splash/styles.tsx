@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import { ThemeState } from "../../redux/slices/themeSlice"; // Import full ThemeState
-import { CustomFonts, FontSize } from "../../constants/typography";
 
 export const createStyles = (theme: ThemeState) =>
   StyleSheet.create({
@@ -12,14 +11,14 @@ export const createStyles = (theme: ThemeState) =>
       padding: 15,
     },
     image: {
-      width: "65%",
-      height: "68%",
-      resizeMode: "contain",
+      width: 221,
+      height: 216,
+      marginBottom: 10,
+      // resizeMode: "contain",
     },
-    text: {
-      fontSize: FontSize.size26,
-      fontFamily: CustomFonts.medium,
-      marginBottom: 20,
-      color: theme.colors.text,
+    image2: {
+      width: 243,
+      height: 41.7,
+      // resizeMode: "contain",
     },
   });

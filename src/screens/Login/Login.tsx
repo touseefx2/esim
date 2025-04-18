@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { TouchableOpacity, View, Text } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { SvgXml } from "react-native-svg";
@@ -8,21 +8,21 @@ import { useAppTranslation, useTheme } from "../../hooks/hooks";
 import StatusBarWrapper from "../../components/StatusBarWrapper";
 import svg from "../../constants/svg";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { loginSchema } from "../../types/schemas";
+import { getLoginSchema } from "../../types/schemas";
 import InputField from "../../components/InputField";
 import GradientButton from "../../components/GradientButton";
 import { touchOpacity } from "../../constants/vectorIcons";
+import { useLogin } from "../../hooks/useLogin";
+import { useSocial } from "../../hooks/useSocial";
 
 function Login(props: any) {
   const theme = useTheme();
-  const styles = useMemo(() => createStyles(theme), [theme.currentTheme]);
   const { t } = useAppTranslation();
+  const styles = useMemo(() => createStyles(theme), [theme.currentTheme]);
+  const { showPassword, toggleShowPswd, handleLogin, handleForgotPassword } =
+    useLogin();
+  const { handleGoogle, handleAppStore } = useSocial();
   const initialValues = { email: "", password: "" };
-
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPswd = () => {
-    setShowPassword(!showPassword);
-  };
 
   return (
     <LinearGradient
@@ -48,83 +48,90 @@ function Login(props: any) {
             enableOnAndroid={true}
             showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.title}>Welcome back</Text>
-            <Text style={styles.subtitle}>
-              Enter the following details to access your account
-            </Text>
+            <Text style={styles.title}>{t("loginTitle")}</Text>
+            <Text style={styles.subtitle}>{t("loginSubtitle")}</Text>
 
             <Formik
               initialValues={initialValues}
-              validationSchema={loginSchema}
-              onSubmit={(values) => {
-                console.log("Login data", values);
-              }}
+              validationSchema={getLoginSchema(t)}
+              onSubmit={handleLogin}
             >
               {({
                 handleChange,
                 handleBlur,
                 handleSubmit,
+                setFieldValue,
                 values,
                 errors,
                 touched,
-              }) => (
-                <View>
-                  <InputField
-                    label={"Email"}
-                    placeholder={"email"}
-                    keyName={"email"}
-                    value={values.email}
-                    handleBlur={handleBlur("email")}
-                    handleChange={handleChange("email")}
-                    isErr={touched.email && errors.email ? true : false}
-                    errMsg={touched.email && errors.email ? errors.email : ""}
-                  />
+              }) => {
+                // const isDisabled =
+                //   areAllValuesNotEmpty(values) && !Object.keys(errors).length
+                //     ? false
+                //     : true;
+                return (
+                  <View>
+                    <InputField
+                      label={t("email")}
+                      value={values.email}
+                      keyName="email"
+                      handleBlur={handleBlur("email")}
+                      handleChange={handleChange("email")}
+                      isErr={touched.email && errors.email ? true : false}
+                      errMsg={touched.email && errors.email ? errors.email : ""}
+                    />
 
-                  <InputField
-                    label={"Password"}
-                    placeholder={"password"}
-                    keyName={"password"}
-                    value={values.password}
-                    handleBlur={handleBlur("password")}
-                    handleChange={handleChange("password")}
-                    icon2={
-                      <TouchableOpacity
-                        style={{
-                          width: "10%",
-                          paddingVertical: !showPassword ? 5 : 10,
-                          alignItems: "flex-end",
-                        }}
-                        onPress={toggleShowPswd}
-                      >
-                        <SvgXml
-                          xml={
-                            !showPassword ? svg.icons.eye : svg.icons.hideEye
-                          }
-                        />
-                      </TouchableOpacity>
-                    }
-                    isErr={touched.password && errors.password ? true : false}
-                    errMsg={
-                      touched.password && errors.password ? errors.password : ""
-                    }
-                    secureTextEntry={!showPassword}
-                  />
+                    <InputField
+                      label={t("password")}
+                      value={values.password}
+                      keyName="password"
+                      handleBlur={handleBlur("password")}
+                      handleChange={handleChange("password")}
+                      icon2={
+                        <TouchableOpacity
+                          activeOpacity={touchOpacity}
+                          style={styles.eyeIcon}
+                          onPress={toggleShowPswd}
+                        >
+                          <SvgXml
+                            xml={
+                              !showPassword ? svg.icons.eye : svg.icons.hideEye
+                            }
+                          />
+                        </TouchableOpacity>
+                      }
+                      isErr={touched.password && errors.password ? true : false}
+                      errMsg={
+                        touched.password && errors.password
+                          ? errors.password
+                          : ""
+                      }
+                      secureTextEntry={!showPassword}
+                    />
 
-                  <TouchableOpacity
-                    activeOpacity={touchOpacity}
-                    style={styles.forgotPassword}
-                  >
-                    <Text style={styles.forgotText}>Forgot your password?</Text>
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      activeOpacity={touchOpacity}
+                      style={styles.forgotPassword}
+                      onPress={handleForgotPassword}
+                    >
+                      <Text style={styles.forgotText}>
+                        {t("forgotYourPass")}
+                      </Text>
+                    </TouchableOpacity>
 
-                  <GradientButton style={styles.loginButton} title={"Login"} />
-                </View>
-              )}
+                    <GradientButton
+                      onPress={handleSubmit}
+                      style={styles.loginButton}
+                      title={t("login")}
+                    />
+                  </View>
+                );
+              }}
             </Formik>
 
             <View style={styles.divider}>
               <View style={styles.line} />
-              <Text style={styles.orText}>Or sign in using</Text>
+              <Text style={styles.orText}>{t("orSignInUsing")}</Text>
               <View style={styles.line} />
             </View>
 
@@ -132,16 +139,27 @@ function Login(props: any) {
               <TouchableOpacity
                 activeOpacity={touchOpacity}
                 style={styles.socialButton}
+                onPress={handleGoogle}
               >
-                <SvgXml xml={svg.icons.google} />
-                <Text style={styles.socialText}>Google</Text>
+                <SvgXml xml={svg.icons.google} width={24} height={24} />
+                <Text style={styles.socialText}>{t("google")}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 activeOpacity={touchOpacity}
                 style={styles.socialButton}
+                onPress={handleAppStore}
               >
-                <SvgXml xml={svg.icons.appStore} />
-                <Text style={styles.socialText}>App Store</Text>
+                <SvgXml
+                  xml={svg.icons.appStore}
+                  width={24}
+                  height={24}
+                  color={
+                    theme.currentTheme == "light"
+                      ? theme.colors.title
+                      : theme.colors.background
+                  }
+                />
+                <Text style={styles.socialText}>{t("appStore")}</Text>
               </TouchableOpacity>
             </View>
           </KeyboardAwareScrollView>

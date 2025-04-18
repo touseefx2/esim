@@ -7,3 +7,7 @@ export const setNavigationBarColor = (currentTheme: String) => {
     "both"
   );
 };
+
+export function areAllValuesNotEmpty(values: object) {
+  return Object.values(values).every((value) => value.trim() !== "");
+}

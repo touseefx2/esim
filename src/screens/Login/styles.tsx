@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 import { ThemeState } from "../../redux/slices/themeSlice"; // Import full ThemeState
 import { CustomFonts, FontSize } from "../../constants/typography";
-import { window } from "../../theme/window";
 
 export const createStyles = (theme: ThemeState) =>
   StyleSheet.create({
@@ -10,29 +9,28 @@ export const createStyles = (theme: ThemeState) =>
     },
     logo: {
       alignSelf: "center",
-      top: "7.5%",
+      top: "6%",
     },
     container: {
       flex: 1,
       justifyContent: "flex-end",
     },
+    mainContainer: {
+      backgroundColor: theme.colors.background,
+      height: "88%",
+      borderTopLeftRadius: 24,
+      borderTopRightRadius: 24,
+      zIndex: 2,
+    },
     mainContainerShadow: {
       backgroundColor: "rgba(255, 255, 255, 0.1)",
-      height: "88%",
+      height: "90%",
       width: "90%",
       borderTopLeftRadius: 24,
       borderTopRightRadius: 24,
       position: "absolute",
       zIndex: 1,
       alignSelf: "center",
-    },
-    mainContainer: {
-      backgroundColor: theme.colors.background,
-      // padding: 15,
-      height: "85%",
-      borderTopLeftRadius: 24,
-      borderTopRightRadius: 24,
-      zIndex: 2,
     },
     content: {
       flex: 1,
@@ -69,10 +67,13 @@ export const createStyles = (theme: ThemeState) =>
       color: "#1D1D1D",
     },
     eyeIcon: {
-      paddingLeft: 8,
+      width: "10%",
+      paddingVertical: 5,
+      alignItems: "flex-end",
     },
     forgotPassword: {
       marginBottom: 32,
+      marginTop: -10,
     },
     forgotText: {
       color: theme.colors.text,
@@ -80,20 +81,14 @@ export const createStyles = (theme: ThemeState) =>
       fontFamily: CustomFonts.medium,
     },
     loginButton: {
-      paddingVertical: 14,
       alignItems: "center",
-      marginBottom: 22,
+      marginBottom: 20,
       width: "100%",
-    },
-    loginText: {
-      color: "#fff",
-      fontSize: 16,
-      fontWeight: "bold",
     },
     divider: {
       flexDirection: "row",
       alignItems: "center",
-      marginBottom: 22,
+      marginBottom: 20,
     },
     line: {
       flex: 1,
@@ -110,11 +105,11 @@ export const createStyles = (theme: ThemeState) =>
       flexDirection: "row",
       justifyContent: "space-between",
       width: "100%",
-      marginBottom: 22,
+      marginBottom: 20,
     },
     socialButton: {
       width: "46%",
-      paddingVertical: 15,
+      paddingVertical: 14,
       paddingHorizontal: 10,
       borderRadius: 8,
       borderWidth: 1,
@@ -128,10 +123,5 @@ export const createStyles = (theme: ThemeState) =>
       fontSize: FontSize.size16,
       fontFamily: CustomFonts.regularIBM,
       color: theme.colors.text,
-    },
-    errorText: {
-      color: "red",
-      fontSize: 12,
-      marginBottom: 8,
     },
   });

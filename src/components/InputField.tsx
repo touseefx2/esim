@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useEffect, useMemo, useRef, useState, memo } from "react";
 import { View, TextInput, Text, Animated, StyleSheet } from "react-native";
 import { useTheme } from "../hooks/hooks";
 import { InputFieldProps } from "../types/AppInterfaceTypes";
@@ -32,23 +32,6 @@ const InputField: FC<InputFieldProps> = ({
     }).start();
   }, [isFocused, value]);
 
-  const labelStyle = {
-    position: "absolute",
-    left: 15,
-    top: animatedLabel.interpolate({
-      inputRange: [0, 1],
-      outputRange: [17, -8], // <-- this value ensures vertical centering
-    }),
-    fontSize: animatedLabel.interpolate({
-      inputRange: [0, 1],
-      outputRange: [FontSize.size14, FontSize.size12],
-    }),
-    color: isErr ? theme.colors.inputErrText : theme.colors.inputLabelText,
-    backgroundColor: theme.colors.background,
-    fontFamily: CustomFonts.regular,
-    paddingHorizontal: 2,
-  };
-
   return (
     <View style={styles.mainInputContainer}>
       <View
@@ -61,7 +44,23 @@ const InputField: FC<InputFieldProps> = ({
           },
         ]}
       >
-        <Animated.Text style={labelStyle}>{label}</Animated.Text>
+        <Animated.Text
+          style={[
+            styles.label,
+            {
+              top: animatedLabel.interpolate({
+                inputRange: [0, 1],
+                outputRange: [17, -8], // <-- this value ensures vertical centering
+              }),
+              fontSize: animatedLabel.interpolate({
+                inputRange: [0, 1],
+                outputRange: [FontSize.size14, FontSize.size12],
+              }),
+            },
+          ]}
+        >
+          {label}
+        </Animated.Text>
         {icon && icon}
         <TextInput
           style={[
@@ -75,6 +74,13 @@ const InputField: FC<InputFieldProps> = ({
                   : "100%",
             },
           ]}
+          keyboardType={
+            keyName === "phone"
+              ? "phone-pad"
+              : keyName === "email"
+              ? "email-address"
+              : "default"
+          }
           onChangeText={handleChange}
           onBlur={(e) => {
             handleBlur && handleBlur(e);
@@ -91,12 +97,12 @@ const InputField: FC<InputFieldProps> = ({
   );
 };
 
-export default InputField;
+export default memo(InputField);
 
 const createStyles = (theme: ThemeState) =>
   StyleSheet.create({
     mainInputContainer: {
-      marginBottom: 22,
+      marginBottom: 20,
     },
     inputContainer: {
       width: "100%",
@@ -106,6 +112,14 @@ const createStyles = (theme: ThemeState) =>
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
+    },
+    label: {
+      position: "absolute",
+      left: 15,
+      color: theme.colors.inputLabelText,
+      backgroundColor: theme.colors.background,
+      fontFamily: CustomFonts.regular,
+      paddingHorizontal: 2,
     },
     input: {
       fontSize: FontSize.size13,

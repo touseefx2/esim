@@ -1,11 +1,7 @@
 import React, { memo } from "react";
 import { StatusBar, StatusBarStyle } from "react-native";
 import { useTheme } from "../hooks/hooks";
-
-interface StatusBarWrapperProps {
-  backgroundColor?: string;
-  barStyle?: StatusBarStyle;
-}
+import { StatusBarWrapperProps } from "../types/AppInterfaceTypes";
 
 const StatusBarWrapper: React.FC<StatusBarWrapperProps> = ({
   backgroundColor,

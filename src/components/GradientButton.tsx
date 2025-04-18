@@ -1,28 +1,11 @@
-import React, { useMemo } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-} from "react-native";
+import React, { useMemo, memo } from "react";
+import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { touchOpacity } from "../constants/vectorIcons";
 import { useTheme } from "../hooks/hooks";
 import { ThemeState } from "../redux/slices/themeSlice";
 import { CustomFonts, FontSize } from "../constants/typography";
-
-interface GradientButtonProps {
-  title: string;
-  onPress?: () => void;
-  colors?: string[];
-  styl?: ViewStyle;
-  style?: ViewStyle;
-  contentStyle?: ViewStyle;
-  textStyle?: TextStyle;
-  touchOpacityy?: number;
-}
+import { GradientButtonProps } from "../types/AppInterfaceTypes";
 
 const GradientButton: React.FC<GradientButtonProps> = ({
   title,
@@ -58,7 +41,7 @@ const GradientButton: React.FC<GradientButtonProps> = ({
   );
 };
 
-export default GradientButton;
+export default memo(GradientButton);
 
 const createStyles = (theme: ThemeState) =>
   StyleSheet.create({

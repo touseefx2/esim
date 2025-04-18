@@ -18,5 +18,29 @@
   "onBoardMessage2": "A seamless and accessible solution for managing complex connectivity needs with ease and efficiency.",
   "onBoardMessage3": "We offer a wide range of eSIM solutions to enhance connectivity and inspire new possibilities for your next digital experience!",
   "search": "Search",
-  "signIn": "Sign In"
+  "signIn": "Sign In",
+  "loginTitle": "Welcome back",
+  "loginSubtitle": "Enter the following details to access your account",
+  "email": "Email",
+  "emailAddress": "Email Address",
+  "phoneNum": "Phone Number",
+  "password": "Password",
+  "forgotYourPass": "Forgot your password?",
+  "orSignInUsing": "Or sign in using",
+  "google": "Google",
+  "appStore": "App Store",
+  "signupTitle": "Sign up now",
+  "signupSubtitle": "Enter the following details to create a new account. Get started now",
+  "createAccount": "Create a New Account",
+  "clickCreateAccount": "By clicking \"Create a New Account”",
+  "agreeTerms": "You are agreeing to the Terms and Privacy Policy",
+  "validation": {
+    "invalid_email": "Invalid email address",
+    "email_required": "Email is required",
+    "password_min": "Password must be at least 6 characters",
+    "password_required": "Password is required",
+    "phone_required": "Phone number is required",
+    "invalid_phone": "Invalid phone number",
+    "must_accept_terms": "You must accept the terms"
+  }
 }

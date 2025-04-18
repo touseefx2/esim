@@ -44,7 +44,7 @@ function App(): React.JSX.Element {
     setTimeout(() => {
       checkUpdateNeeded();
       setIsSplash(false);
-    }, 2000);
+    }, 2500);
   };
 
   const updateLayout = async () => {

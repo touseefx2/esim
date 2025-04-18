@@ -1,5 +1,23 @@
 import { JSX } from "react";
-import { NativeSyntheticEvent, TextInputFocusEventData } from "react-native";
+import {
+  NativeSyntheticEvent,
+  StatusBarStyle,
+  TextInputFocusEventData,
+  TextStyle,
+  ViewStyle,
+} from "react-native";
+
+export interface StatusBarWrapperProps {
+  backgroundColor?: string;
+  barStyle?: StatusBarStyle;
+}
+
+export interface ForceUpdateProps {
+  isModal: boolean;
+  updateUrl: string;
+  isForce: boolean;
+  closeModal: () => void;
+}
 
 export interface InputFieldProps {
   label?: string;
@@ -14,4 +32,27 @@ export interface InputFieldProps {
   icon2?: JSX.Element;
   secureTextEntry?: boolean;
   styles?: any;
+}
+
+export interface GradientButtonProps {
+  title: string;
+  onPress?: () => void;
+  colors?: string[];
+  styl?: ViewStyle;
+  style?: ViewStyle;
+  contentStyle?: ViewStyle;
+  textStyle?: TextStyle;
+  touchOpacityy?: number;
+}
+
+export interface loginProps {
+  email: string;
+  password: string;
+}
+
+export interface signupProps {
+  email: string;
+  phone: string;
+  password: string;
+  isTerms: boolean;
 }

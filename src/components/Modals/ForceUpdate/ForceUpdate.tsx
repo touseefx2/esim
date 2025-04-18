@@ -14,12 +14,7 @@ import { createStyles } from "./styles";
 import { touchOpacity } from "../../../constants/vectorIcons";
 import images from "../../../constants/images";
 import GradientButton from "../../GradientButton";
-interface ForceUpdateProps {
-  isModal: boolean;
-  updateUrl: string;
-  isForce: boolean;
-  closeModal: () => void;
-}
+import { ForceUpdateProps } from "../../../types/AppInterfaceTypes";
 
 const ForceUpdate: React.FC<ForceUpdateProps> = ({
   isModal,

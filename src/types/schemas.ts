@@ -1,18 +1,25 @@
-import * as yup from "yup";
-import validation from "../constants/validation";
+import * as Yup from "yup";
+import { getValidation } from "../constants/validation";
 
-// export const LoginUserSchema = yup.object().shape({
-//   organization: validation.organization,
-//   username: validation.username,
-//   password: validation.password,
-// });
+export const getLoginSchema = (t: (key: string) => string) => {
+  const validation = getValidation(t);
+  return Yup.object().shape({
+    email: validation.email,
+    password: validation.password,
+  });
+};
 
-export const loginSchema = yup.object().shape({
-  email: validation.email,
-  password: validation.password,
-});
+export const getSignupSchema = (t: (key: string) => string) => {
+  const validation = getValidation(t);
+  return Yup.object().shape({
+    email: validation.email,
+    phone: validation.phone,
+    password: validation.password,
+    isTerms: validation.isTerms,
+  });
+};
 
-export const resetPassSchema = yup.object().shape({
-  otp: yup.string().required("OTP is required"),
-  password: yup.string().required("password is required"),
+export const resetPassSchema = Yup.object().shape({
+  otp: Yup.string().required("OTP is required"),
+  password: Yup.string().required("password is required"),
 });
